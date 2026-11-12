@@ -141,7 +141,7 @@
   function renderShell(active) {
     if (!$('#view')) {
       app.innerHTML = `
-        <div class="demo-banner">DEMOLÄGE · syntetisk data · inga integrationer anslutna</div>
+        <div class="demo-banner">DEMOLÄGE · syntetisk data · inga integrationer anslutna${window.CRM_STANDALONE ? ' · data sparas bara i denna webbläsare' : ''}</div>
         <header class="topbar">
           <a class="brand" href="#/dag"><span class="logo">H</span><span class="brand-text">Hyrdon CRM</span></a>
           <nav class="mainnav" id="mainnav"></nav>

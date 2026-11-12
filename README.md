@@ -4,7 +4,14 @@ En enkel CRM för Hyrdon (leasing), Premium Motors (bilförsäljning) och Americ
 Den här versionen körs **bara lokalt** med **syntetisk demodata**. Inga integrationer är anslutna:
 Microsoft 365, Telenor, Blocket, HubSpot och webbformulär är inte anslutna, och appen skickar inga mejl och ringer inga samtal.
 
-## Starta
+## Snabbaste sättet att prova: en enda HTML-fil
+
+Ladda ner **`dist/hyrdon-crm-demo.html`** och dubbelklicka på den. Den öppnas i Chrome, Edge eller Safari.
+Ingen installation och ingen server behövs. Hela CRM:en med demodata finns i filen, och ändringar sparas i webbläsaren
+på den datorn. Varje person och webbläsare har alltså sin egen kopia, så samtidig "Ta lead" mellan säljare kan inte provas i den här varianten.
+Bygg om filen efter kodändringar med `npm run build:demo`.
+
+## Starta (fullständig lokal version)
 
 Kräver **Node.js 22.13 eller senare**. Inga npm-paket behöver installeras, och appen har inga beroenden.
 
@@ -54,6 +61,7 @@ Båda ersätter **all** lokal data, även användare du har skapat. Datum i demo
 ```bash
 npm test          # API, behörigheter, samtidighet, rapporter, persistens (22 tester)
 npm run test:ui   # webbläsartest av huvudflöden på mobil + dra-och-släpp på desktop (kräver Playwright)
+npm run test:demo # testar HTML-demofilen öppnad direkt från disk (file://)
 ```
 
 ## Struktur
@@ -65,7 +73,9 @@ src/leads.js         leads, kunder, aktiviteter, behörigheter, atomisk "Ta lead
 src/admin.js         användare och pipelines (endast admin)
 src/reports.js       översikt/rapporter (Europe/Stockholm)
 src/seed.js          syntetisk demodata
-src/server.js        HTTP-API + statiska filer
+src/api.js           JSON-API (delas av servern och HTML-demofilen)
+src/server.js        HTTP-server + statiska filer
+scripts/build-standalone.js  bygger dist/hyrdon-crm-demo.html (med sql.js i vendor/)
 shared/              telefon-normalisering, tidszon, konstanter (delas av server och webbläsare)
 public/              gränssnitt (vanilla JS, inget byggsteg)
 test/                tester
